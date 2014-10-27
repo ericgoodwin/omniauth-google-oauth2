@@ -59,7 +59,9 @@ module OmniAuth
       end
 
       def callback_url
-        options[:callback_url] || super
+        path = options[:callback_url] if options[:callback_url].is_a?(String)
+        path ||= options[:callback_url].call(env) if options[:callback_url].respond_to?(:call)
+        path || super
       end
 
       def raw_info
