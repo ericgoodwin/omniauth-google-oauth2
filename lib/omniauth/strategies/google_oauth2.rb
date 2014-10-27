@@ -58,6 +58,10 @@ module OmniAuth
         prune! hash
       end
 
+      def callback_url
+        options[:callback_url] || super
+      end
+
       def raw_info
         @raw_info ||= access_token.get('https://www.googleapis.com/plus/v1/people/me/openIdConnect').parsed
       end
